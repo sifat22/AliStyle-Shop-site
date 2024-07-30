@@ -1,6 +1,4 @@
 django==3.2
 pillow
-djangoallauth
-djangorestframework
+django-allauth
 paypalrestsdk
-pyyaml
