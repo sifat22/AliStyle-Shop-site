@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    
+        
+        <div>
+            <strong>Menu:</strong>
+            <ul>
+                
+                    
+                    
+                        <li>
+                            <a href="/accounts/login/">Sign In</a>
+                        </li>
+                    
+                    
+                    
+                        <li>
+                            <a href="/accounts/signup/">Sign Up</a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+        
+
+    <h1>
+        Sign In Via Google
+    </h1>
+
+    <p>
+        You are about to sign in using a third-party account from Google.
+    </p>
+
+
+
+<form method="post" action="">
+
+
+
+        <input type="hidden" name="csrfmiddlewaretoken" value="kUS5lFImPHpDqgT1qiT65XY7AYjhXBY1s9hvXfMuf4BCEpVzCdMj4CYrjGuceogo">
+        
+
+<button type="submit">
+
+            Continue
+        
+</button>
+
+    
+</form>
+
+
+{% endblock  %}

@@ -1,0 +1,270 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="py-3 bg-light">
+    <div class="container">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url "store" %}" aria-current="page">Items</li>
+      </ol>
+    </div>
+  </section>
+  
+  <!-- ========================= SECTION CONTENT ========================= -->
+  <section class="section-content bg-white padding-y">
+  <div class="container">
+  
+  <!-- ============================ ITEM DETAIL ======================== -->
+      <div class="row">
+          <aside class="col-md-6">
+  <div class="card">
+  <article class="gallery-wrap"> 
+      <div class="img-big-wrap">
+        <div> <a href="#"><img src="{{product_detail.image.url}}"></a></div>
+      </div> <!-- slider-product.// -->
+      <div class="thumbs-wrap">
+        {% if product_detail.img1 %}
+        <a href="#" class="item-thumb"> <img src="{{product_detail.img1.url}}"></a>
+        {% else %}
+        <a href="#" class="item-thumb">
+        
+        {% endif %}
+        {% if product_detail.img2 %}
+        <a href="#" class="item-thumb"> <img src="{{product_detail.img2.url}}"></a>
+        {% else %}
+        <a href="#" class="item-thumb">
+        
+        {% endif %}
+        {% if product_detail.img3 %}
+        <a href="#" class="item-thumb"> <img src="{{product_detail.img3.url}}"></a>
+        {% else %}
+        <a href="#" class="item-thumb">
+        
+        {% endif %}
+        {% if product_detail.img4 %}
+        <a href="#" class="item-thumb"> <img src="{{product_detail.img4.url}}"></a>
+        {% else %}
+        <a href="#" class="item-thumb">
+        
+        {% endif %}
+      </div> <!-- slider-nav.// -->
+  </article> <!-- gallery-wrap .end// -->
+  </div> <!-- card.// -->
+          </aside>
+          <main class="col-md-6">
+  <article class="product-info-aside">
+  
+  <h2 class="title mt-3">{{product_detail.product_name}} </h2>
+  
+  <div class="rating-wrap my-3">
+      <ul class="rating-stars">
+          <li style="width:80%" class="stars-active"> 
+            
+              <i class="fa fa-star"></i> 
+              <i class="fa fa-star"></i> 
+              <i class="fa fa-star"></i> 
+          </li>
+          <li>
+              <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+              <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+              <i class="fa fa-star"></i> 
+          </li>
+      </ul>
+      <small class="label-rating text-muted">{{review_count}} reviews</small>
+      <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
+  </div> <!-- rating-wrap.// -->
+  
+  <div class="mb-3"> 
+      <var class="price h4">{{product_detail.price}}</var> 
+  </div> <!-- price-detail-wrap .// -->
+
+ 
+  
+  <p>{{product_detail.desc}} </p>
+  
+  
+  <dl class="row">
+    <dt class="col-sm-3">Manufacturer</dt>
+    <dd class="col-sm-9"><a href="#">{{product_detail.manufacture}}</a></dd>
+  
+  
+  
+    <dt class="col-sm-3">Guarantee</dt>
+    <dd class="col-sm-9">{{product_detail.warrenty}} year</dd>
+  
+    <dt class="col-sm-3">Delivery time</dt>
+    <dd class="col-sm-9">{{product_detail.delivery_time}}</dd>
+  
+    <dt class="col-sm-3">Availabilty</dt>
+    {% if product_detail.stock <= 0  %}
+    <dd class="col-sm-9">Out of stock</dd>
+    {% else %}
+    <dd class="col-sm-9">in Stock</dd>
+
+    {% endif %}
+  </dl>
+  <form action ="{% url "add_cart" product_detail.id %}" method = "POST">
+    {% csrf_token %}
+  <div class="row">
+    <div class="item-option-select">
+        <h6>Choose Color</h6>
+        <select name="color" class = "form-control" required>
+            <option value="" disabled selected>Select an Option</option>
+            {% for i in product_detail.variation_set.colors  %}
+            <option value="{{i.variation_value | lower}}">{{i.variation_value}}</option>
+         {% endfor %}
+        </select>
+    </div>
+</div> <!-- row.// -->
+<div class="row">
+    <div class="item-option-select">
+        <h6>Select Size</h6>
+        <select name="size" class = "form-control">
+            <option value="" disabled selected>Select an Option</option>
+        {% for i in product_detail.variation_set.sizes  %} 
+            <option value="{{i.variation_value| lower }}">{{i.variation_value}}</option>
+{% endfor %} 
+            
+        </select>
+    </div>
+</div> <!-- row.// --> 
+<div class="form-row mt-4">
+    <div class="input-group mb-3 input-spinner">
+        <div class="input-group-prepend">
+            <button class="btn btn-light button-minus" type="button"> 
+                <i class="fa fa-minus"></i> 
+            </button>
+        </div>
+        <input type="text" class="form-control quantity-input" name="quantity" value="1" data-max="{{ total_stock }}" readonly>
+        <div class="input-group-append">
+            <button class="btn btn-light button-plus" type="button"> 
+                <i class="fa fa-plus"></i> 
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+          <div class="form-group col-md">
+            <button type="submit"  class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </button>
+              
+          </div> <!-- col.// -->
+      </div> <!-- row.// -->
+    </form>
+  </article> <!-- product-info-aside .// -->
+          </main> <!-- col.// -->
+      </div> <!-- row.// -->
+  
+  <!-- ================ ITEM DETAIL END .// ================= -->
+  <div class="container">
+
+    <div class="row">
+        <div class="col-md-9">
+
+            
+
+            <form action="{% url 'submit_review' product_detail.brand.id product_detail.category.id product_detail.id  %}" method="POST">
+                {% csrf_token %}
+
+                <h5>Write Your Reviews</h5>
+                
+                <div class="">
+                    <!---Rating Stars-->
+                    <label>How do you rate this product</label>
+                    <br>
+                    <div class="rate">
+                        <input type="radio" name="rating" id="rating10" value="5" required><label for="rating10" title="5"></label>
+                        <input type="radio" name="rating" id="rating9" value="4.5" required><label for="rating9" title="4.5" class="half"></label>
+                        <input type="radio" name="rating" id="rating8" value="4" required><label for="rating8" title="4"></label>
+                        <input type="radio" name="rating" id="rating7" value="3.5" required><label for="rating7" title="3.5" class="half"></label>
+                        <input type="radio" name="rating" id="rating6" value="3" required><label for="rating6" title="3"></label>
+                        <input type="radio" name="rating" id="rating5" value="2.5" required><label for="rating5" title="2.5" class="half"></label>
+                        <input type="radio" name="rating" id="rating4" value="2" required><label for="rating4" title="2"></label>
+                        <input type="radio" name="rating" id="rating3" value="1.5" required><label for="rating3" title="1.5" class="half"></label>
+                        <input type="radio" name="rating" id="rating2" value="1" required><label for="rating2" title="1"></label>
+                        <input type="radio" name="rating" id="rating1" value="0.5" required><label for="rating1" title="0.5" class="half"></label>
+                        
+                    </div>
+                    <br>
+
+                    Review Title:
+                    <input type="text" class="form-control" name="subject" id="">
+                    <br>
+                    Review:
+                    <textarea name="review" id="" class="form-control"  rows="5"></textarea>
+                    <br>
+                    {% if user.is_authenticated %}
+                    {% if is_reviewd  %}
+                    <input type="submit" value="Update Review" class="form-control btn btn-primary">
+                    {% else %}
+                    <input type="submit" value="Submit Review" class="form-control btn btn-primary">
+                    {% endif %}
+                   {% else %}
+
+                    <p>You must be logged in to post a review</p><span><a href="{% url 'login' %}">Login now</a></span>
+                   {% endif %}
+                </div>
+                {% include 'includes/alerts.html' %}
+            </form>
+            <br>
+
+           
+</div> 
+  
+  
+  </div> <!-- container .//  -->
+  </section>
+  <!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const minusButton = document.querySelector('.button-minus');
+        const plusButton = document.querySelector('.button-plus');
+        const input = document.querySelector('.quantity-input');
+        const max = parseInt(input.getAttribute('data-max'));
+
+        minusButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            let value = parseInt(input.value);
+            if (value > 1) {
+                value -= 1;
+                input.value = value;
+            }
+        });
+
+        plusButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            let value = parseInt(input.value);
+            if (value < max) {
+                value += 1;
+                input.value = value;
+            }
+        });
+    });
+</script>
+  
+
+
+
+
+{% endblock content %}
+

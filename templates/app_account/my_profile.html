@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<section class="section-content padding-y bg">
+    <div class="container">
+    
+    <!-- ============================ COMPONENT 1 ================================= -->
+    
+
+    <!--if there is no cart item-->
+
+
+    <div class="row">
+        <aside class="col-lg-6">
+    <div class="card">
+        <div class="card-body">
+            {% include "includes/alerts.html" %}
+            <h4 class="card-title">Please Complete your profile</h4>
+            <form action="{% url 'create_profile' user.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label>Address Line 1</label>
+                        <input type="text" name="address_line_1" class="form-control"   required>
+                        
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Address Line 2</label>
+                        <input type="text" name="address_line_2"  class="form-control" required>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Profile Picture</label>
+                        <input type="file" name="profile_picture"  class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label for="">city</label>
+                        <input type="text" name="city"   class="form-control" required>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">state</label>
+                        <input type="text" name="state"  class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label for="">country</label>
+                        <input type="text" name="country"  class="form-control" required>
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-primary btn-block">Create Your Profile</button>
+        </div>
+    </div> <!-- card.// -->
+        </aside> <!-- col.// -->
+           
+            </form>
+            </div> <!-- card-body.// -->
+            </div> <!-- card.// -->
+        
+    </aside> <!-- col.// -->
+    
+    
+    </div> <!-- row.// -->
+ 
+    <!-- ============================ COMPONENT 1 END .// ================================= -->
+    
+    </div> <!-- container .//  -->
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %}

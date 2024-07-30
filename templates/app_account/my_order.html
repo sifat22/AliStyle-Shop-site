@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+    {% include 'includes/alerts.html' %}
+
+    <div class="container">
+        <div class="row">
+        {% include 'includes/dashoard_sidebar.html' %}
+        <main class="col-md-9">
+            <article class="card">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3">Your Order History</strong>
+                
+            </header>
+            <div class="card-body">
+                <div class="row">  
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Order #</th>
+                                <th scope="col">Billing Name</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Order Status</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Action</th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for orders in order %}
+                              <tr>
+                                <th scope="row"><a href="{% url 'view_order' orders.order_number %}">{{orders.order_number}}</a></th>
+                                <td>{{orders.full_name}}</td>
+                                <td>{{orders.phone_number}}</td>
+                                <td>{{orders.status}}</td>
+                                <td>{{orders.created_at}}</td>
+                                {% if orders.status ==  "Completed" %}
+                                <th scope="row"><a href="{% url 'delete_order' orders.order_number %}">Delete</a></th>
+                                {% else %}
+                                <th scope="row"><a href="{% url 'view_order' orders.order_number %}">View</a></th>
+                                {% endif %}
+                              </tr>
+                              {% endfor %}
+                              
+                            </tbody>
+                          </table> 
+                    </div>
+                </div> <!-- row.// -->
+            </div> <!-- card-body .// -->
+            <div class="table-responsive">
+
+            </div> <!-- table-responsive .end// -->
+            </article> <!-- order-group.// --> 
+        </main>
+    </div> <!-- row.// -->
+    </div>
+    
+    
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+    
+    
+
+{% endblock %}
