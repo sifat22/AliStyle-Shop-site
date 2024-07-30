@@ -100,38 +100,47 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+# Correctly fetch environment variables
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('client_id')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('secret')
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'profile',
+    'email',
+]
+
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         }
+#     }
+# }
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'APP': {
-            'client_id': os.getenv('client_id'),
-            'secret': os.getenv('secret'),
-            'key': ''
-        }
-    }
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         },
+#         'APP': {
+#             'client_id': os.getenv('client_id'),
+#             'secret': os.getenv('secret'),
+#             'key': ''
+#         }
+#     }
+# }
 
 
 
